@@ -5,10 +5,7 @@ class MessengerController < ApplicationController
 	def receive_message
 		$webhook = request.raw_post
 		puts $webhook.inspect
-		if !$webhook.nil?
-
-
-
+		if $webhook["token"] = "caPwPxIyw5qrXnunVr2cN10R"
 			# send message
 			body = {
 	   		text: "hi there, you said trip"
@@ -18,8 +15,6 @@ class MessengerController < ApplicationController
 	 			body: body,
 	 			headers: { 'Content-Type' => 'application/json' }
 			)
-
-
 		end
 	end
 
