@@ -4,13 +4,13 @@ class MessengerController < ApplicationController
 	require 'json'
 
 	def receive_message
-		$webhook = request.raw_post
-		puts $webhook.inspect
-		if $webhook["token"] = "caPwPxIyw5qrXnunVr2cN10R"
-			puts "text: " + $webhook["text"].inspect
-			if $webhook["text"] == "insult"
+		@webhook = request.raw_post
+		puts @webhook.inspect
+		if @webhook["token"] = "caPwPxIyw5qrXnunVr2cN10R"
+			puts "text: " + @webhook["text"].inspect
+			if @webhook["text"] == "insult"
 				Messagehuman.sendMessage("you ugly as poo")
-			elsif $webhook["text"] == "compliment"
+			elsif @webhook["text"] == "compliment"
 				Messagehuman.sendMessage("you're absolutely gorgeous")
 			else
 				Messagehuman.sendMessage("sorry, i don't understand")
