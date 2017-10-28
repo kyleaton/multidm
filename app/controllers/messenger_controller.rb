@@ -6,15 +6,7 @@ class MessengerController < ApplicationController
 		$webhook = request.raw_post
 		puts $webhook.inspect
 		if $webhook["token"] = "caPwPxIyw5qrXnunVr2cN10R"
-			# send message
-			body = {
-	   		text: "hi there, you said trip"
-			}.to_json
-			response = HTTParty.post(
-	 			"https://hooks.slack.com/services/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",
-	 			body: body,
-	 			headers: { 'Content-Type' => 'application/json' }
-			)
+			Messagehuman.sendMessage("hey there, I'm Alec")
 		end
 	end
 
