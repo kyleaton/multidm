@@ -12,6 +12,5 @@ class Messagehuman
 	 			headers: { 'Content-Type' => 'application/json' }
 			)
 		end
-	end
 
 end
