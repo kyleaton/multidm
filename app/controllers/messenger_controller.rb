@@ -7,7 +7,8 @@ class MessengerController < ApplicationController
 		@webhook = request.raw_post
 		puts @webhook.inspect
 		if @webhook["token"] = "caPwPxIyw5qrXnunVr2cN10R"
-			puts "text: " + @webhook["text"]
+			puts @webhook["text"]
+			$theText = @webhook["text"]
 			if @webhook["text"] == "insult"
 				Messagehuman.sendMessage("you ugly as poo")
 			elsif @webhook["text"] == "compliment"
