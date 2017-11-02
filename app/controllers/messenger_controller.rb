@@ -6,7 +6,7 @@ class MessengerController < ApplicationController
 
 	def receive_message
 		@webhook = CGI::parse(request.raw_post)
-		$theText = @webhook
+		$theText = @webhook["token"]
 		puts @webhook.inspect
 		if @webhook["token"] == "igdU33zedZ6zU7gevHrZDNWT"
 			Messagehuman.sendMessage("ok, you'll talk to them later")
