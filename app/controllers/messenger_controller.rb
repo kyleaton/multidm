@@ -9,6 +9,7 @@ class MessengerController < ApplicationController
 		$theText = @webhook["token"]
 		puts @webhook.inspect
 		if @webhook["token"] == "igdU33zedZ6zU7gevHrZDNWT"
+			puts "SEND THE MESSAGE"
 			Messagehuman.sendMessage("ok, you'll talk to them later")
 		end
 	end
