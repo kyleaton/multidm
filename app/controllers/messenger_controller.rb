@@ -4,7 +4,7 @@ class MessengerController < ApplicationController
 	require 'json'
 
 	def receive_message
-		@webhook = request.raw_post
+		@webhook = JSON.parse(request.raw_post)
 		$theText = @webhook
 		puts @webhook.inspect
 		if @webhook["token"] == "igdU33zedZ6zU7gevHrZDNWT"
