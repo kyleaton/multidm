@@ -8,8 +8,8 @@ class MessengerController < ApplicationController
 		@webhook = CGI::parse(request.raw_post)
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
-			puts "SEND THE MESSAGE"
-			Messagehuman.sendMessage("ok, you'll talk to them later")
+			newMessage = Message.new(channel: @webhook["channel_name"][0], user_id: @webhook["user_id"][0])
+			newMessage.save
 		end
 	end
 
