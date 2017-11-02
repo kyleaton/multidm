@@ -6,16 +6,8 @@ class MessengerController < ApplicationController
 	def receive_message
 		@webhook = request.raw_post
 		puts @webhook.inspect
-		if @webhook["token"] = "caPwPxIyw5qrXnunVr2cN10R"
-			puts @webhook["text"]
-			$theText = @webhook["text"]
-			if @webhook["text"] == "insult"
-				Messagehuman.sendMessage("you ugly as poo")
-			elsif @webhook["text"] == "compliment"
-				Messagehuman.sendMessage("you're absolutely gorgeous")
-			else
-				Messagehuman.sendMessage("sorry, i don't understand")
-			end
+		if @webhook["token"] == "igdU33zedZ6zU7gevHrZDNWT"
+			Messagehuman.sendMessage("ok, you'll talk to them later")
 		end
 	end
 
