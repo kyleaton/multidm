@@ -18,7 +18,9 @@ class MessengerController < ApplicationController
 			end
 
 			if @webhook["text"][0] == "done"
+				puts "INSIDE DONE"
 				@messages = Message.where(channel: @webhook["channel"][0], user_id: @webhook["user_id"][0])
+				puts @messages.inspect
 				@messages.each do |message|
 					message.destroy
 				end
