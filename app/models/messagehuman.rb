@@ -7,7 +7,7 @@ class Messagehuman
 	   		text: message
 			}.to_json
 			response = HTTParty.post(
-	 			"https://hooks.slack.com/services/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",
+	 			"https://hooks.slack.com/services/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",
 	 			body: body,
 	 			headers: { 'Content-Type' => 'application/json' }
 			)
