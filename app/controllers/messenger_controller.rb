@@ -8,8 +8,15 @@ class MessengerController < ApplicationController
 		@webhook = CGI::parse(request.raw_post)
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
-			newMessage = Message.new(channel: @webhook["channel_name"][0], user_id: @webhook["user_id"][0])
-			newMessage.save
+			if @webhook["text"][0].blank?
+				newMessage = Message.new(channel: @webhook["channel_name"][0], user_id: @webhook["user_id"][0])
+				newMessage.save
+			end
+
+			if @webhook["text"][0] == "list"
+				Messagehuman.sendMessage("your list of things")
+			end
+			
 		end
 	end
 
