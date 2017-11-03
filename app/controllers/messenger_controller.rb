@@ -14,7 +14,7 @@ class MessengerController < ApplicationController
 			end
 
 			if @webhook["text"][0] == "list"
-				Messagehuman.sendMessage("your list of things")
+				Messagehuman.sendMessage("your list of things:\nthis is cool\nthis is also cool")
 			end
 
 			if @webhook["text"][0] == "done"
