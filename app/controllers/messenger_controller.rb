@@ -18,7 +18,7 @@ class MessengerController < ApplicationController
 				@messageString = String.new
 				@myMessages.each do |message|
 					if message.channel == "directmessage"
-						@messageString = @messageString + "text <@#{message.channel_id}>" + "\n"
+						@messageString = @messageString + "text <direct message|#{message.channel_id}>" + "\n"
 					else
 						@messageString = @messageString + "text <##{message.channel_id}|#{message.channel}>" + "\n"
 					end
