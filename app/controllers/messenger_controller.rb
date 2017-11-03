@@ -9,7 +9,7 @@ class MessengerController < ApplicationController
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 			if @webhook["text"][0].blank?
-				newMessage = Message.new(channel: @webhook["channel_name"][0], user_id: @webhook["user_id"][0])
+				newMessage = Message.new(channel: @webhook["channel_name"][0], user_id: @webhook["user_id"][0], channel_id: @webhook["channel_id"][0])
 				newMessage.save
 			end
 
@@ -19,7 +19,7 @@ class MessengerController < ApplicationController
 
 			if @webhook["text"][0] == "done"
 				puts "INSIDE DONE"
-				@messages = Message.where(channel: @webhook["channel_name"][0], user_id: @webhook["user_id"][0])
+				@messages = Message.where(channel_id: @webhook["channel_id"][0], user_id: @webhook["user_id"][0])
 				if !@messages.empty?
 					@messages.each do |message|
 						message.destroy
