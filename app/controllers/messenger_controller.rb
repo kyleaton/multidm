@@ -17,7 +17,11 @@ class MessengerController < ApplicationController
 				@myMessages = Message.where(user_id: @webhook["user_id"][0])
 				@messageString = String.new
 				@myMessages.each do |message|
-					@messageString = @messageString + "text <##{message.channel_id}|#{message.channel}>" + "\n"
+					if message.channel == "directmessage"
+						@messageString = @messageString + "text <@#{message.channel}>" + "\n"
+					else
+						@messageString = @messageString + "text <##{message.channel_id}|#{message.channel}>" + "\n"
+					end
 					Messagehuman.sendMessage(@messageString)
 				end
 			end
