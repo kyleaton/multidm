@@ -14,7 +14,12 @@ class MessengerController < ApplicationController
 			end
 
 			if @webhook["text"][0] == "list"
-				Messagehuman.sendMessage("your <#C6H429KML|sentry> of things:\nthis is cool\nthis is also cool")
+				@myMessages = Message.where(user_id: @webhook["user_id"][0])
+				@messageString = String.new
+				@myMessages.each do |message|
+					@messageString = @messageString + "text <##{message.channel_id}|#{message.channel_name}>" + "\n"
+					Messagehuman.sendMessage(@messageString)
+				end
 			end
 
 			if @webhook["text"][0] == "done"
