@@ -20,7 +20,7 @@ class MessengerController < ApplicationController
 					if message.channel == "directmessage"
 						team_domain = @webhook["team_domain"][0]
 						domain = "https://#{team_domain}.slack.com/messages/#{@webhook["user_id"][0]}"
-						@messageString = @messageString + "text <@U6H418JNS>" + "\n"
+						@messageString = @messageString + "text <#{domain}|direct message>" + "\n"
 					else
 						@messageString = @messageString + "text <##{message.channel_id}|#{message.channel}>" + "\n"
 					end
