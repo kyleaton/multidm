@@ -16,8 +16,7 @@ class Messagehuman
 	def self.userlist()
 		# send message
 		body = {
-			token: "xoxp-219592720864-220173653139-268864145494-a8695e33319b9809744304f17d57aafc",
-			pretty: "1"
+			token: "xoxp-219592720864-220173653139-268864145494-a8695e33319b9809744304f17d57aafc"
 		}.to_json
 		response = HTTParty.post(
  			"https://slack.com/api/users.list",
