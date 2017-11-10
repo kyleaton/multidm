@@ -8,37 +8,8 @@ class MessengerController < ApplicationController
 		@webhook = CGI::parse(request.raw_post)
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
-			if @webhook["text"][0].blank?
-				newMessage = Message.new(channel: @webhook["channel_name"][0], user_id: @webhook["user_id"][0], channel_id: @webhook["channel_id"][0])
-				newMessage.save
-			end
-
-			if @webhook["text"][0] == "list"
-				@myMessages = Message.where(user_id: @webhook["user_id"][0])
-				@messageString = String.new
-				@myMessages.each do |message|
-					if message.channel == "directmessage"
-						
-						team_domain = @webhook["team_domain"][0]
-						domain = "https://#{team_domain}.slack.com/messages/#{@webhook["user_id"][0]}"
-						@messageString = @messageString + "text <#{domain}|direct message>" + "\n"
-					else
-						@messageString = @messageString + "text <##{message.channel_id}|#{message.channel}>" + "\n"
-					end
-					Messagehuman.sendMessage(@messageString, @webhook["response_url"][0])
-				end
-			end
-
-			if @webhook["text"][0] == "done"
-				puts "INSIDE DONE"
-				@messages = Message.where(channel_id: @webhook["channel_id"][0], user_id: @webhook["user_id"][0])
-				if !@messages.empty?
-					@messages.each do |message|
-						message.destroy
-					end
-				end
-			end
-
+			# does the token change each time? what token do i use? 
+			Messagehuman.userlist()
  		end
 	end
 
