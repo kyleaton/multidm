@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103042501) do
+ActiveRecord::Schema.define(version: 20171111170758) do
 
   create_table "messages", force: :cascade do |t|
-    t.string "channel"
     t.string "user_id"
-    t.string "channel_id"
+    t.string "team_id"
+    t.string "user_name"
   end
 
 end
