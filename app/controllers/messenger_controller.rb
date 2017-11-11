@@ -9,7 +9,7 @@ class MessengerController < ApplicationController
 		puts @webhook.inspect
 		#if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 			# does the token change each time? what token do i use? 
-			Messagehuman.userlist()
+			response = HTTParty.get("https://slack.com/api/users.list?token=xoxp-219592720864-220173653139-268864145494-a8695e33319b9809744304f17d57aafc")
  		#end
 	end
 
