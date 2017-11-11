@@ -7,10 +7,10 @@ class MessengerController < ApplicationController
 	def receive_message
 		@webhook = CGI::parse(request.raw_post)
 		puts @webhook.inspect
-		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
+		#if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 			# does the token change each time? what token do i use? 
 			Messagehuman.userlist()
- 		end
+ 		#end
 	end
 
 	def homepage
