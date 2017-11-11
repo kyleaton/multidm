@@ -16,7 +16,7 @@ class Messagehuman
 	def self.userlist()
 		# send message
 		response = HTTParty.get(
- 			"https://slack.com/api/users.list?token=xoxp-219592720864-220173653139-268864145494-a8695e33319b9809744304f17d57aafc",
+ 			"https://slack.com/api/users.list?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4"
 		)
 	end
 
