@@ -12,7 +12,7 @@ class MessengerController < ApplicationController
  			@userList = @userList.parsed_response["members"]
  			puts @userList.inspect
  			@userList.each do |user|
- 				puts user["id"]
+ 				puts user["id"] + " - " + user["team_id"] + " - " + user["name"]
  			end
  		end
 	end
