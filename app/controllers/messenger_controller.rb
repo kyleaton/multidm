@@ -15,8 +15,8 @@ class MessengerController < ApplicationController
 	 			puts @userList.inspect
 	 			@userList.each do |user|
 	 				puts user["id"] + " - " + user["team_id"] + " - " + user["name"]
-	 				newUser = Message.new()
-	 				newUser.save(user_id: user["id"], team_id: user["team_id"], user_name: user["name"])
+	 				newUser = Message.new(user_id: user["id"], team_id: user["team_id"], user_name: user["name"])
+	 				newUser.save
 	 			end
  			end
  		end
