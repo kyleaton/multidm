@@ -85,6 +85,12 @@ class MessengerController < ApplicationController
 
 
 		if @theToken["ok"] == true
+			@teamExisting = Team.where(team_id: @theToken["team_id"])
+			if !@teamExisting.nil?
+				@teamExisting.each do |team|
+					team.destroy
+				end
+			end
 			newTeam = Team.new(access_token: @theToken["access_token"], user_id: @theToken["user_id"], team_name: @theToken["team_name"], team_id: @theToken["team_id"], channel_id: @theToken["incoming_webhook"]["channel_id"])
 			newTeam.save()
 		end
