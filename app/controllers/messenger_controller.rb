@@ -70,6 +70,7 @@ class MessengerController < ApplicationController
 	end
 
 	def done
+		puts request.raw_post.inspect
 		puts "THE PARAMS"
 		thecode = params["code"]
 		puts thecode
