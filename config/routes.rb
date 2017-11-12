@@ -3,6 +3,5 @@ Rails.application.routes.draw do
   root 'messenger#homepage'
   get 'done' => 'messenger#done'
   post 'messenger/webhook' => 'messenger#receive_message'
-  post 'done' => 'messenger#done'
 
 end
