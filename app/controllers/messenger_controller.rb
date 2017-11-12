@@ -9,7 +9,7 @@ class MessengerController < ApplicationController
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 
-			findTeam = Message.where(team_id: @webhook["team_id"])
+			findTeam = Message.where(team_id: @webhook["team_id"][0])
 			if findTeam.empty?
 				@userList = HTTParty.get("https://slack.com/api/users.list?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4")
 	 			@userList = @userList.parsed_response["members"]
@@ -26,16 +26,24 @@ class MessengerController < ApplicationController
 	 		puts @dmList.inspect
 
 	 		@userText = @webhook["text"][0]
-	 		@splitText = @userText.split(" ") if !@userText.nil?
-	 		@userToText = Array.new
-	 		@splitText.each do |word|
-	 			if word[0] == "@"
-	 				word.slice!(0)
-	 				@userToText.push(word)
-	 			end
+	 		if !@userText.nil?
+		 		@splitText = @userText.split(" ") 
+		 		@userToText = Array.new
+		 		@splitText.each do |word|
+		 			if word[0] == "@"
+		 				word.slice!(0)
+		 				@userToText.push(word)
+		 			end
+		 		end
+		 		puts @userToText.inspect
 	 		end
-
-	 		puts @userToText.inspect
+	 		@userIds = Array.new
+	 		@userToText.each do |user|
+	 			getUser = Message.find_by(team_id: @webhook["team_id"][0], user_name: user)
+	 			@userIds.push(getUser.user_id) if !getUser.nil?
+	 		end
+	 		puts "User IDS"
+	 		puts @userIds.inspect
  		end
 	end
 
