@@ -70,5 +70,8 @@ class MessengerController < ApplicationController
 	end
 
 	def done
+		puts "THE PARAMS"
+		puts request.inspect
+		$inspect = request.inspect
 	end
 end
