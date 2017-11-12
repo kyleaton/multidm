@@ -71,8 +71,8 @@ class MessengerController < ApplicationController
 
 	def done
 		puts "THE PARAMS"
-		code = params["code"]
-		puts code
-		#HTTParty.get("https://slack.com/api/oauth.access?client_id=219592720864.265033610496&client_secret=d5062fd434690b7d86bf58f68f7dc9ea&code=#{code}")
+		thecode = params["code"]
+		puts thecode
+		HTTParty.get("https://slack.com/api/oauth.access?client_id=219592720864.265033610496&client_secret=d5062fd434690b7d86bf58f68f7dc9ea&code=#{thecode}")
 	end
 end
