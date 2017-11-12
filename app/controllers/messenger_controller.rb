@@ -9,9 +9,10 @@ class MessengerController < ApplicationController
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 
+			teamToken = Team.find_by(team_id:  @webhook["team_id"][0]).access_token if !Team.find_by(team_id:  @webhook["team_id"][0]).nil?
 			findTeam = Message.where(team_id: @webhook["team_id"][0])
 			if findTeam.empty?
-				@userList = HTTParty.get("https://slack.com/api/users.list?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4")
+				@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
 	 			@userList = @userList.parsed_response["members"]
 	 			puts @userList.inspect
 	 			@userList.each do |user|
@@ -21,7 +22,7 @@ class MessengerController < ApplicationController
 	 			end
  			end
 
-	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4")
+	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=#{teamToken}")
 	 		@dmList = @dmList.parsed_response["ims"]
 	 		puts @dmList.inspect
 
@@ -59,7 +60,7 @@ class MessengerController < ApplicationController
 			puts "THE FINAL LIST"
 			puts @finalList.inspect
 			@finalList.each do |dm|
-				Messagehuman.sendDM(dm, @userText)
+				Messagehuman.sendDM(dm, @userText, teamToken)
 			end
 
 
@@ -79,6 +80,7 @@ class MessengerController < ApplicationController
 			@theToken = HTTParty.get("https://slack.com/api/oauth.access?client_id=219592720864.265033610496&client_secret=d5062fd434690b7d86bf58f68f7dc9ea&code=#{thecode}")
 			puts @theToken
 		end
+
 
 		if @theToken["ok"] == true
 			newTeam = Team.new(access_token: @theToken["access_token"], user_id: @theToken["user_id"], team_name: @theToken["team_name"], team_id: @theToken["team_id"], channel_id: @theToken["incoming_webhook"]["channel_id"])
