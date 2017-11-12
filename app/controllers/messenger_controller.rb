@@ -21,7 +21,7 @@ class MessengerController < ApplicationController
 	 			end
  			end
 
- 			Messagehuman.sendMessage()
+ 			HTTParty.get("https://slack.com/api/chat.postMessage?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4&channel=D6H418JNS&text=hi&as_user=true")
 
 	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4")	
 	 		@dmList = @dmList.parsed_response["ims"]
@@ -40,9 +40,11 @@ class MessengerController < ApplicationController
 		 		puts @userToText.inspect
 	 		end
 	 		@userIds = Array.new
-	 		@userToText.each do |user|
-	 			getUser = Message.find_by(team_id: @webhook["team_id"][0], user_name: user)
-	 			@userIds.push(getUser.user_id) if !getUser.nil?
+	 		if !@userToText.empty?
+		 		@userToText.each do |user|
+		 			getUser = Message.find_by(team_id: @webhook["team_id"][0], user_name: user)
+		 			@userIds.push(getUser.user_id) if !getUser.nil?
+		 		end
 	 		end
 	 		puts "User IDS"
 	 		puts @userIds.inspect
