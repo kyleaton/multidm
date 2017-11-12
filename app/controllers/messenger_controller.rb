@@ -9,7 +9,9 @@ class MessengerController < ApplicationController
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 
-			teamToken = Team.find_by(team_id:  @webhook["team_id"][0]).access_token if !Team.find_by(team_id:  @webhook["team_id"][0]).nil?
+			teamToken = Team.find_by(team_id: @webhook["team_id"][0]).access_token if !Team.find_by(team_id: @webhook["team_id"][0]).nil?
+			puts "THE TEAM TOKEN"
+			puts teamToken.inspect
 			findTeam = Message.where(team_id: @webhook["team_id"][0])
 			if findTeam.empty?
 				@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
