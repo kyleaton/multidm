@@ -21,6 +21,7 @@ class MessengerController < ApplicationController
  			end
 
  		@dmList = HTTParty.get("https://slack.com/api/im.list?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4")	
+ 		@dmList = @dmList.parsed_response["ims"]
  		puts @dmList.inspect
  		end
 	end
