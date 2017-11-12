@@ -81,6 +81,8 @@ class MessengerController < ApplicationController
 		end
 
 		if @theToken["ok"] == true
+			newTeam = Team.new(access_token: @theToken["access_token"], user_id: @theToken["user_id"], team_name: @theToken["team_name"], team_id: @theToken["team_id"], channel_id: @theToken["incoming_webhook"]["channel_id"])
+			newTeam.save()
 		end
 
 	end
