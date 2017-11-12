@@ -21,15 +21,13 @@ class MessengerController < ApplicationController
 	 			end
  			end
 
- 			HTTParty.get("https://slack.com/api/chat.postMessage?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4&channel=D6H418JNS&text=hi&as_user=true")
-
-	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4")	
+	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=xoxp-219592720864-220173653139-265033877552-f3a1fd016fbe6ed8c63c85c0ec52ead4")
 	 		@dmList = @dmList.parsed_response["ims"]
 	 		puts @dmList.inspect
 
 	 		@userText = @webhook["text"][0]
 	 		if !@userText.nil?
-		 		@splitText = @userText.split(" ") 
+		 		@splitText = @userText.split(" ")
 		 		@userToText = Array.new
 		 		@splitText.each do |word|
 		 			if word[0] == "@"
@@ -47,7 +45,20 @@ class MessengerController < ApplicationController
 		 		end
 	 		end
 	 		puts "User IDS"
+			@finalList = Array.new
 	 		puts @userIds.inspect
+	 		@dmList.each do |dm|
+				@userIds.each do |userid|
+					if userid == dm["user"]
+						@finalList.push(dm["id"])
+					end
+				end
+			end
+
+			puts "THE FINAL LIST"
+			puts @finalList.inspect
+
+
  		end
 	end
 
