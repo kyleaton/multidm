@@ -68,4 +68,7 @@ class MessengerController < ApplicationController
 
 	def homepage
 	end
+
+	def done
+	end
 end
