@@ -71,8 +71,6 @@ class MessengerController < ApplicationController
 
 	def done
 		puts "THE PARAMS"
-		puts request.inspect
-		$inspect = request.inspect
-		$inspect2 = params.inspect
+		$inspect2 = params["code"].inspect
 	end
 end
