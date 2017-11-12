@@ -31,8 +31,8 @@ class MessengerController < ApplicationController
 		 		@userToText = Array.new
 		 		@splitText.each do |word|
 		 			if word[0] == "@"
-		 				word.slice!(0)
 						@userText.slice!(word)
+		 				word.slice!(0)
 		 				@userToText.push(word)
 		 			end
 		 		end
