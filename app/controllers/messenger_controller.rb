@@ -79,5 +79,9 @@ class MessengerController < ApplicationController
 			@theToken = HTTParty.get("https://slack.com/api/oauth.access?client_id=219592720864.265033610496&client_secret=d5062fd434690b7d86bf58f68f7dc9ea&code=#{thecode}")
 			puts @theToken
 		end
+
+		if @theToken["ok"] == true
+		end
+
 	end
 end
