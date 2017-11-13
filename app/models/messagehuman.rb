@@ -3,12 +3,11 @@ class Messagehuman
 
 	def self.sendDM(channel, text, token)
 		body = {
-			channel: channel,
 			text: text,
 			as_user: true
 		}.to_json
 		response = HTTParty.post(
- 			"https://slack.com/api/chat.postMessage?token=#{token}",
+ 			"https://slack.com/api/chat.postMessage?token=#{token}&channel=#{channel}",
  			body: body,
  			headers: { 'Content-Type' => 'application/json' }
 		)
