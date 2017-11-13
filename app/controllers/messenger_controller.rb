@@ -29,7 +29,7 @@ class MessengerController < ApplicationController
 	 		puts @dmList.inspect
 
 	 		@userText = @webhook["text"][0]
-			puts "#{@userText}".gsub!("'","stuff")
+			puts "#{@userText}".gsub!("\'","stuff")
 			puts "THE USER TEXT"
 			puts @userText
 	 		if !@userText.nil?
