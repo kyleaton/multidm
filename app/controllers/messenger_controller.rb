@@ -39,6 +39,10 @@ class MessengerController < ApplicationController
 		 				@userToText.push(word)
 		 			end
 		 		end
+				@userText = Rumoji.encode(@userText)
+				puts "THE USERTEXT RUNMOJI"
+				puts @userText.inspect
+				puts "OTHER STUFF"
 		 		puts @userToText.inspect
 	 		end
 	 		@userIds = Array.new
