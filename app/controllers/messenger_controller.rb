@@ -29,7 +29,7 @@ class MessengerController < ApplicationController
 	 		puts @dmList.inspect
 
 	 		@userText = @webhook["text"][0]
-			@userText.gsub!("'", "%27")
+			@userText.gsub!("'", "&apos;")
 	 		if !@userText.nil?
 		 		@splitText = @userText.split(" ")
 		 		@userToText = Array.new
@@ -71,6 +71,7 @@ class MessengerController < ApplicationController
 	end
 
 	def homepage
+
 	end
 
 	def done
