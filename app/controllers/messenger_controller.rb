@@ -30,6 +30,8 @@ class MessengerController < ApplicationController
 
 	 		@userText = @webhook["text"][0]
 			@userText.gsub!("'", "&apos;")
+			puts "THE USER TEXT"
+			puts @userText.inspect
 	 		if !@userText.nil?
 		 		@splitText = @userText.split(" ")
 		 		@userToText = Array.new
