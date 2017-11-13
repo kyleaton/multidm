@@ -10,7 +10,7 @@ class Messagehuman
 		response = HTTParty.post(
  			"https://slack.com/api/chat.postMessage?token=#{token}",
  			body: body,
- 			headers: { 'Content-Type' => 'application/javascript' }
+ 			headers: {'Content-Type' => 'application/json'}
 		)
 	end
 
