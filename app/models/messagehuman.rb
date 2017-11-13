@@ -3,7 +3,7 @@ class Messagehuman
 
 	def self.sendDM(channel, text, token)
 		body = {
-			channel: channel
+			channel: channel,
 			text: text,
 			as_user: true
 		}.to_json
