@@ -39,9 +39,19 @@ class MessengerController < ApplicationController
 		 				@userToText.push(word)
 		 			end
 		 		end
+				@emojiText = @userText.split(" ")
+				@emojiText.each do |word|
+					if word.length == 1
+						emojiWord = Runmoji.encode(word)
+						if emojiWord[0] == ":"
+							emojiWord = " " + emojiWord + " "
+							@emojiText.gsub!(word, emojiWord)
+						end
+					end
+				end
 				#@userText = Rumoji.encode(@userText)
-				#puts "THE USERTEXT RUNMOJI"
-				#puts @userText.inspect
+				puts "THE USERTEXT RUNMOJI"
+				puts @emojiText.inspect
 				puts "OTHER STUFF"
 		 		puts @userToText.inspect
 	 		end
