@@ -42,7 +42,7 @@ class MessengerController < ApplicationController
 				@emojiText = @userText.split(" ")
 				@emojiText.each do |word|
 					if word.length == 1
-						emojiWord = Runmoji.encode(word)
+						emojiWord = Rumoji.encode(word)
 						if emojiWord[0] == ":"
 							emojiWord = " " + emojiWord + " "
 							@emojiText.gsub!(word, emojiWord)
