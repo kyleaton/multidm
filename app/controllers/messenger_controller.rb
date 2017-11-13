@@ -29,7 +29,6 @@ class MessengerController < ApplicationController
 	 		puts @dmList.inspect
 
 	 		@userText = @webhook["text"][0]
-			puts @userText
 	 		if !@userText.nil?
 		 		@splitText = @userText.split(" ")
 		 		@userToText = Array.new
@@ -63,8 +62,7 @@ class MessengerController < ApplicationController
 			puts "THE FINAL LIST"
 			puts @finalList.inspect
 			@finalList.each do |dm|
-				@sendDM = Messagehuman.sendDM(dm, @userText, teamToken)
-				puts @sendDM.inspect
+				Messagehuman.sendDM(dm, @userText, teamToken)
 			end
 
 
@@ -72,7 +70,6 @@ class MessengerController < ApplicationController
 	end
 
 	def homepage
-
 	end
 
 	def done
