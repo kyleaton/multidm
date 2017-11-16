@@ -4,6 +4,8 @@ class MessengerController < ApplicationController
 	require 'json'
 	require 'cgi'
 
+	include "MessengerHelper"
+
 	def receive_message
 		@webhook = CGI::parse(request.raw_post)
 		puts @webhook.inspect
@@ -24,9 +26,12 @@ class MessengerController < ApplicationController
 	 			end
  			end
 
+			$emojis = @emojis_hash
+
 	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=#{teamToken}")
 	 		@dmList = @dmList.parsed_response["ims"]
 	 		puts @dmList.inspect
+
 
 	 		@userText = @webhook["text"][0]
 	 		if !@userText.nil?
