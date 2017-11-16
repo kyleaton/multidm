@@ -1,6 +1,6 @@
 module MessengerHelper
-
-@emojis_hash = {
+=begin
+@emojis_hash = Hash.new(emojis: {
 "😄" => ":bowtie:",
 "😄" => ":smile:",
 "😆" => ":laughing:",
@@ -183,6 +183,6 @@ module MessengerHelper
 "👥" => ":busts_in_silhouette:",
 "💬" => ":speech_balloon:",
 "💭" => ":thought_balloon:"
-}
-
+})
+=end
 end
