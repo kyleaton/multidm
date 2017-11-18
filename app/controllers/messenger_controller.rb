@@ -4,6 +4,7 @@ class MessengerController < ApplicationController
 	require 'json'
 	require 'cgi'
 
+	include MessengerHelper
 
 	def receive_message
 		@webhook = CGI::parse(request.raw_post)
@@ -77,6 +78,8 @@ class MessengerController < ApplicationController
 	end
 
 	def homepage
+	 @emoji = MessengerHelper.emojis
+	 	puts @emoji["😜"]
 	end
 
 	def done
