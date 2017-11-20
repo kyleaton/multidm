@@ -20,9 +20,8 @@ class MessengerController < ApplicationController
 
 			@userInfo = Array.new
 			@userList.each do |user|
-				puts user.inspect
-				#@userInfo.push(user["id"])
-				#@userInfo.push(user["name"])
+				@userInfo.push(user["id"])
+				@userInfo.push(user["name"])
 			end
 
 			puts "THE USER INFO"
