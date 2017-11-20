@@ -79,7 +79,7 @@ class MessengerController < ApplicationController
 			puts "THE FINAL LIST"
 			puts @finalList.inspect
 			@finalList.each do |dm|
-				messageSent = Messagehuman.sendDM(dm, @userText, teamToken)
+				messageSent = Messagehuman.sendMessage(dm, @userText, teamToken)
 				puts messageSent
 			end
 

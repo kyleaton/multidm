@@ -8,6 +8,7 @@ class Messagehuman
 		HTTParty.get("https://slack.com/api/chat.postMessage?token=#{token}&channel=#{channel}&text=#{text}&as_user=true")
 	end
 
-
-
+	def self.sendMessage(channel, text, token)
+		HTTParty.post("https://slack.com/api/chat.postMessage", :body => {:token => token, :channel => channel, :text => text, :as_user => true})
+	end
 end
