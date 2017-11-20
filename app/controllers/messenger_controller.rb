@@ -15,7 +15,7 @@ class MessengerController < ApplicationController
 			puts "THE TEAM TOKEN"
 			puts teamToken.inspect
 			@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
-	 		@userList = @userList.parsed_response["members"][0]
+	 		@userList = @userList.parsed_response["members"]
 	 		puts @userList.inspect
 
 			@userInfo = Array.new
