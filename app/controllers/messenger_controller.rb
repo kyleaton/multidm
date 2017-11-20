@@ -14,17 +14,9 @@ class MessengerController < ApplicationController
 			teamToken = Team.find_by(team_id: @webhook["team_id"][0]).access_token if !Team.find_by(team_id: @webhook["team_id"][0]).nil?
 			puts "THE TEAM TOKEN"
 			puts teamToken.inspect
-			findTeam = Message.where(team_id: @webhook["team_id"][0])
-			if findTeam.empty?
-				@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
-	 			@userList = @userList.parsed_response["members"]
-	 			puts @userList.inspect
-	 			@userList.each do |user|
-	 				puts user["id"] + " - " + user["team_id"] + " - " + user["name"]
-	 				newUser = Message.new(user_id: user["id"], team_id: user["team_id"], user_name: user["name"])
-	 				newUser.save
-	 			end
- 			end
+			@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
+	 		@userList = @userList.parsed_response["members"]
+	 		puts @userList.inspect
 
 	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=#{teamToken}")
 	 		@dmList = @dmList.parsed_response["ims"]
@@ -36,6 +28,8 @@ class MessengerController < ApplicationController
 		 		@userToText = Array.new
 		 		@splitText.each do |word|
 		 			if word[0] == "@"
+						userName = word.slice!("@")
+
 						@userText.slice!(word)
 		 				word.slice!(0)
 		 				@userToText.push(word)
@@ -49,7 +43,8 @@ class MessengerController < ApplicationController
 	 		@userIds = Array.new
 	 		if !@userToText.empty?
 		 		@userToText.each do |user|
-		 			getUser = Message.find_by(team_id: @webhook["team_id"][0], user_name: user)
+					@userList.each do |aUser|
+		 			getUser = aUser if aUser.user_name == user
 		 			@userIds.push(getUser.user_id) if !getUser.nil?
 		 		end
 	 		end
@@ -91,7 +86,7 @@ class MessengerController < ApplicationController
 			puts @theToken
 		end
 
-
+		if !@theToken.nil?
 		if @theToken["ok"] == true
 			@teamExisting = Team.where(team_id: @theToken["team_id"])
 			if !@teamExisting.nil?
@@ -102,6 +97,9 @@ class MessengerController < ApplicationController
 			newTeam = Team.new(access_token: @theToken["access_token"], user_id: @theToken["user_id"], team_name: @theToken["team_name"], team_id: @theToken["team_id"], channel_id: @theToken["incoming_webhook"]["channel_id"])
 			newTeam.save()
 		end
-
 	end
+end
+
+
+
 end
