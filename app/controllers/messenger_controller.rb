@@ -43,7 +43,9 @@ class MessengerController < ApplicationController
 	 		@userIds = Array.new
 	 		if !@userToText.empty?
 		 		@userToText.each do |user|
+					puts "USER: " + user.inspect
 					@userList.each do |aUser|
+						puts "AUSER: " + aUser.inspect
 			 			getUser = aUser if aUser.name == user
 			 			@userIds.push(getUser.id) if !getUser.nil?
 					end
