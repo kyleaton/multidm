@@ -15,9 +15,17 @@ class MessengerController < ApplicationController
 			puts "THE TEAM TOKEN"
 			puts teamToken.inspect
 			@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
-	 		@userList = @userList.parsed_response
+	 		@userList = @userList.parsed_response["members"][0]
 	 		puts @userList.inspect
-
+			@userInfo = Array.new
+			@userList.each do |user|
+				hash = Hash.new
+				hash["id"] = user["id"]
+				hash["name"] = user["name"])
+				@userInfo.push(hash)
+			end
+			puts "THE USER LIST"
+			puts @userList.inspect
 	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=#{teamToken}")
 	 		@dmList = @dmList.parsed_response["ims"]
 	 		puts @dmList.inspect
@@ -28,8 +36,6 @@ class MessengerController < ApplicationController
 		 		@userToText = Array.new
 		 		@splitText.each do |word|
 		 			if word[0] == "@"
-						userName = word.slice!("@")
-
 						@userText.slice!(word)
 		 				word.slice!(0)
 		 				@userToText.push(word)
@@ -44,9 +50,9 @@ class MessengerController < ApplicationController
 	 		if !@userToText.empty?
 		 		@userToText.each do |user|
 					puts "USER: " + user.inspect
-					@userList.each do |aUser|
+					@userInfo.each do |aUser|
 						puts "AUSER: " + aUser.inspect
-			 			getUser = aUser if aUser.name == user
+			 			getUser = aUser if aUser["name"] == user
 			 			@userIds.push(getUser.id) if !getUser.nil?
 					end
 		 		end
