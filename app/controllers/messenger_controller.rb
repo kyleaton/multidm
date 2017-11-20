@@ -20,8 +20,10 @@ class MessengerController < ApplicationController
 
 			@userInfo = Array.new
 			@userList.each do |user|
-				@userInfo.push(user["id"])
-				@userInfo.push(user["name"])
+				pushArray = Array.new
+				pushArray.push(user["id"])
+				pushArray.push(user["name"])
+				@userInfo.push(pushArray)
 			end
 
 			puts "THE USER INFO"
