@@ -30,7 +30,16 @@ class MessengerController < ApplicationController
 	 		@dmList = @dmList.parsed_response["ims"]
 	 		puts @dmList.inspect
 
-
+			@emoji = MessengerHelper.emojis
+			@chars = @userText.split("")
+			@chars.each do |char|
+				if !@emoji[char].nil?
+					@userText.gsub!(char, @emoji[char])
+				end
+			end
+			puts "emoji sutff"
+			puts @userText.inspect
+			
 	 		@userText = @webhook["text"][0]
 	 		if !@userText.nil?
 		 		@splitText = @userText.split(" ")
@@ -42,9 +51,6 @@ class MessengerController < ApplicationController
 		 				@userToText.push(word)
 		 			end
 		 		end
-				#@userText = Rumoji.encode(@userText)
-				#puts "THE USERTEXT RUNMOJI"
-				#puts @userText.inspect
 				puts "OTHER STUFF"
 		 		puts @userToText.inspect
 	 		end
