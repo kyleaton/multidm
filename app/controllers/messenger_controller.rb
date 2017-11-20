@@ -17,15 +17,18 @@ class MessengerController < ApplicationController
 			@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
 	 		@userList = @userList.parsed_response["members"][0]
 	 		puts @userList.inspect
+
 			@userInfo = Array.new
 			@userList.each do |user|
 				hash = Hash.new
 				hash["id"] = user["id"]
-				hash["name"] = user["name"])
+				hash["name"] = user["name"]
 				@userInfo.push(hash)
 			end
-			puts "THE USER LIST"
-			puts @userList.inspect
+
+			puts "THE USER INFO"
+			puts @userInfo.inspect
+
 	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=#{teamToken}")
 	 		@dmList = @dmList.parsed_response["ims"]
 	 		puts @dmList.inspect
