@@ -55,8 +55,8 @@ class MessengerController < ApplicationController
 					puts "USER: " + user.inspect
 					@userInfo.each do |aUser|
 						puts "AUSER: " + aUser.inspect
-			 			getUser = aUser if aUser["name"] == user
-			 			@userIds.push(getUser.id) if !getUser.nil?
+			 			getUser = aUser if aUser[1] == user
+			 			@userIds.push(getUser[0]) if !getUser.nil?
 					end
 		 		end
 	 		end
