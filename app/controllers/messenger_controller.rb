@@ -35,6 +35,8 @@ class MessengerController < ApplicationController
 
 			if @webhook["text"][0].include?("help") && @webhook["text"][0].exclude?("@")
 				userMessage = Messagehuman.sendUserMessage(@webhook["user_id"][0], "Need some help? No problem! Here is the formula for using multidm: _/multidm @john @jane type your message here_", teamToken)
+				puts "THE USER MESSAGE"
+				puts userMessage
 			end
 
 	 		@userText = @webhook["text"][0]
