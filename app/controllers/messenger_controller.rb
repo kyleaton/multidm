@@ -76,6 +76,11 @@ class MessengerController < ApplicationController
 				end
 			end
 
+			userMessage = Messagehuman.sendUserMessage(@webhook["user_id"][0], "hey there", teamToken)
+			puts "THE USER MESSAGE"
+			puts userMessage
+
+			
 			puts "THE FINAL LIST"
 			puts @finalList.inspect
 			@finalList.each do |dm|
