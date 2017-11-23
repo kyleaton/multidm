@@ -76,10 +76,9 @@ class MessengerController < ApplicationController
 				end
 			end
 
-			userMessage = Messagehuman.sendUserMessage(@webhook["channel_id"][0], "hey there", teamToken)
-			puts "THE USER MESSAGE"
-			puts userMessage
-
+			if @webhook["text"][0].include?("help") && @webhook["text"][0].exclude?("@")
+				userMessage = Messagehuman.sendUserMessage(@webhook["user_id"][0], "Need some help? No problem! Here is the formula for using multidm: _'/multidm @john @jane type your message here_", teamToken)
+			end
 
 			puts "THE FINAL LIST"
 			puts @finalList.inspect
