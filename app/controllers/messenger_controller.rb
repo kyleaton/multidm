@@ -39,9 +39,13 @@ class MessengerController < ApplicationController
 		 		@userToText = Array.new
 		 		@splitText.each do |word|
 		 			if word[0] == "@"
-						@userText.slice!(word)
-		 				word.slice!(0)
-		 				@userToText.push(word)
+						fullUserName = word
+						fullUserName.slice!(0)
+						if @userInfo.include?(fullUserName)
+							@userText.slice!(word)
+		 					word.slice!(0)
+		 					@userToText.push(word)
+						end
 		 			end
 		 		end
 				puts "OTHER STUFF"
