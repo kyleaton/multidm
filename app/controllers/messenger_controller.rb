@@ -41,6 +41,7 @@ class MessengerController < ApplicationController
 		 			if word[0] == "@"
 						fullUserName = word
 						fullUserName.slice!(0)
+						puts "THE FULL USERNAME: " + fullUserName
 						if @userInfo.include?(fullUserName)
 							@userText.slice!(word)
 		 					word.slice!(0)
