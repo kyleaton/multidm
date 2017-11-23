@@ -33,6 +33,10 @@ class MessengerController < ApplicationController
 	 		@dmList = @dmList.parsed_response["ims"]
 	 		puts @dmList.inspect
 
+			if @webhook["text"][0].include?("help") && @webhook["text"][0].exclude?("@")
+				userMessage = Messagehuman.sendUserMessage(@webhook["user_id"][0], "Need some help? No problem! Here is the formula for using multidm: _'/multidm @john @jane type your message here_", teamToken)
+			end
+
 	 		@userText = @webhook["text"][0]
 	 		if !@userText.nil?
 		 		@splitText = @userText.split(" ")
@@ -76,9 +80,7 @@ class MessengerController < ApplicationController
 				end
 			end
 
-			if @webhook["text"][0].include?("help") && @webhook["text"][0].exclude?("@")
-				userMessage = Messagehuman.sendUserMessage(@webhook["user_id"][0], "Need some help? No problem! Here is the formula for using multidm: _'/multidm @john @jane type your message here_", teamToken)
-			end
+
 
 			puts "THE FINAL LIST"
 			puts @finalList.inspect
