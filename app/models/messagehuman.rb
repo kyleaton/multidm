@@ -14,6 +14,6 @@ class Messagehuman
 	end
 
 	def self.sendUserMessage(channel, text, token)
-		HTTParty.post("https://slack.com/api/chat.postMessage", :body => {:token => token, :channel => channel, :text => text})
+		HTTParty.post("https://slack.com/api/chat.postEphemeral", :body => {:token => token, :channel => channel, :text => text})
 	end
 end
