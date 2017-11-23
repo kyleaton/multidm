@@ -40,11 +40,11 @@ class MessengerController < ApplicationController
 		 		@splitText.each do |word|
 		 			if word[0] == "@"
 						fullUserName = word
-						fullUserName.slice!(0)
+						fullUserName = fullUserName.gsub("@", "")
 						puts "THE FULL USERNAME: " + fullUserName
 						if @userInfo.to_s.include?(fullUserName)
 							@userText.slice!(word)
-		 					word.slice!(0)
+		 					word.slice!("@")
 		 					@userToText.push(word)
 						end
 		 			end
