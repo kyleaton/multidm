@@ -42,7 +42,7 @@ class MessengerController < ApplicationController
 						fullUserName = word
 						fullUserName.slice!(0)
 						puts "THE FULL USERNAME: " + fullUserName
-						if @userInfo.include?(fullUserName)
+						if @userInfo.to_s.include?(fullUserName)
 							@userText.slice!(word)
 		 					word.slice!(0)
 		 					@userToText.push(word)
