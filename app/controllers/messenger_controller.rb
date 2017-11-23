@@ -96,8 +96,7 @@ class MessengerController < ApplicationController
 	end
 
 	def homepage
-	 @emoji = MessengerHelper.emojis
-	 	puts @emoji["😜"]
+
 	end
 
 	def done
