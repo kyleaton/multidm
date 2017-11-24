@@ -1,11 +1,13 @@
 <div class="jumbotron center">
   <h1> Add MultiDM to Slack! </h1>
+  <h2> Send a DM to multiple people in one line </h2>
+  <h2><i>“/multidm @john @jane @harry when is your birthday - it's for HR”</i></h2>
+  <br>
+  <h2> <u>To Add To Slack:</u> </h2><br>
+  <h2> 1. Click "Add To Slack" </h2>
   <a href="https://slack.com/oauth/authorize?client_id=219592720864.265033610496&scope=incoming-webhook,commands,users:read,im:read,chat:write:user,chat:write:bot"><%= image_tag("slack-button.png") %></a>
   <p> * MultiDM will not post to any channel - ever! * </p>
-  <br><br><br>
-  <h2> Send a DM to multiple people in one line </h2>
-  <br>
-  <h2><i>“/multidm @john @jane @harry when is your birthday - it's for HR”<i></h2>
+  <h2> 2. Select "Post To - Slackbot" </h2>
+  <%= image_tag("install-info.png", width: '421', height: '127', class: "border") %><br>
 
-  <%= image_tag("logo.png", height: '337.5', width: '337.5') %>
 </div>
