@@ -1,13 +1,25 @@
-<div class="jumbotron center">
-  <h1> Add MultiDM to Slack! </h1>
-  <h2> Send a DM to multiple people in one line </h2>
-  <h2><i>“/multidm @john @jane @harry when is your birthday - it's for HR”</i></h2>
-  <br>
-  <h2> <u>To Add To Slack:</u> </h2><br>
-  <h2> 1. Click "Add To Slack" </h2>
-  <a href="https://slack.com/oauth/authorize?client_id=219592720864.265033610496&scope=incoming-webhook,commands,users:read,im:read,chat:write:user,chat:write:bot"><%= image_tag("slack-button.png") %></a>
-  <p> * MultiDM will not post to any channel - ever! * </p>
-  <h2> 2. Select "Post To - Slackbot" </h2>
-  <%= image_tag("install-info.png", width: '421', height: '127', class: "border") %><br>
+<div class="homepage">
+  <div class="information">
+  <div class="heading center">
+    <h1 class="title center">Add MultiDM to Slack</h1>
+    <h3>Ever wish you could send a DM to multiple people at the same time? Now you can:</h3>
+  </div>
 
+  <h3><i>“/multidm @ross @rachel @joey how are you feeling about that company announcement?”</i></h3>
+  <br>
+  <ul class="list-group">
+    <li class="list-group-item no-border list-font">• Get the feature Slack forgot to build</li>
+    <li class="list-group-item no-border list-font">• Eliminates the need to create a group chat</li>
+    <li class="list-group-item no-border list-font">• Way faster than copy and paste into multiple DMs</li>
+    <li class="list-group-item no-border list-font">• MultiDM from any channel (only the people you DM will see it)</li>
+  </ul>
+  </div>
+
+  <div class="install">
+    <h4>Get it here:</h4>
+    <a href="https://slack.com/oauth/authorize?client_id=219592720864.265033610496&scope=incoming-webhook,commands,users:read,im:read,chat:write:user,chat:write:bot"><%= image_tag("slack-button.png") %></a>
+    <p>(Remember: MultiDM will not post to any channel)</p>
+    <h4>If you're prompted, select "Post To - Slackbot"</h4>
+    <%= image_tag("install-info.png", width: '421', height: '127', class: "border") %><br>
+  </div>
 </div>
