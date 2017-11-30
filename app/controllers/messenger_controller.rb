@@ -8,6 +8,7 @@ class MessengerController < ApplicationController
 
 	def receive_message
 		@webhook = CGI::parse(request.raw_post)
+		@sentHelp = false
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 
@@ -35,6 +36,7 @@ class MessengerController < ApplicationController
 
 			if @webhook["text"][0].include?("help") && @webhook["text"][0].exclude?("@")
 				userMessage = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "Need some help? No problem! Here is the formula for using multidm: _/multidm @john @jane type your message here_", teamToken)
+				@sentHelp = true
 				puts "THE USER MESSAGE"
 				puts userMessage
 			end
@@ -86,8 +88,8 @@ class MessengerController < ApplicationController
 
 			puts "THE FINAL LIST"
 			puts @finalList.inspect
-			if @finalList.empty?
-				messageSent = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "uh-oh! something went wrong! i think you forgot to add people to send your message to! use /help", teamToken)
+			if @finalList.empty? && @sentHelp == false
+				messageSent = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "uh-oh! something went wrong! i think you forgot to add people to send your message to! use /multidm help", teamToken)
 			else
 				@finalList.each do |dm|
 					messageSent = Messagehuman.sendMessage(dm, @userText, teamToken)
