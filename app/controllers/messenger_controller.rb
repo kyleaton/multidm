@@ -86,9 +86,13 @@ class MessengerController < ApplicationController
 
 			puts "THE FINAL LIST"
 			puts @finalList.inspect
-			@finalList.each do |dm|
-				messageSent = Messagehuman.sendMessage(dm, @userText, teamToken)
-				puts messageSent
+			if @finalList.empty?
+				messageSent = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "uh-oh! something went wrong! i think you forgot to add people to send your message to! use /help", teamToken)
+			else
+				@finalList.each do |dm|
+					messageSent = Messagehuman.sendMessage(dm, @userText, teamToken)
+					puts messageSent
+				end
 			end
 
 
