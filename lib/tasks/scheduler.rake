@@ -1,7 +1,7 @@
 desc "This task is called by the Heroku scheduler add-on"
 require 'httparty'
 task :stay_awake => :environment do
-  httpGet = HTTParty.get("https://slackmultidm.herokuapp.com/")
+  httpGet = HTTParty.get("https://slackmultidm.herokuapp.com/contact")
   puts httpGet.inspect
 end
 
