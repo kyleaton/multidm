@@ -17,7 +17,7 @@ class MessengerController < ApplicationController
 			otherTokenArray = Array.new
 			if !otherTokens.empty?
 				otherTokens.each do |teamToken|
-					teamToken.push(teamToken.access_token)
+					otherTokenArray.push(teamToken.access_token)
 				end
 			end
 			puts "THE TEAM TOKEN"
