@@ -12,91 +12,104 @@ class MessengerController < ApplicationController
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 
-			teamToken = Team.find_by(team_id: @webhook["team_id"][0]).access_token if !Team.find_by(team_id: @webhook["team_id"][0]).nil?
+			teamToken = Team.find_by(user_id: @webhook["user_id"][0]).access_token
+			otherTokens = Team.where(team_id: @webhook["team_id"][0])
+			otherTokenArray = Array.new
+			if !otherTokens.empty?
+				otherTokens.each do |teamToken|
+					teamToken.push(teamToken.access_token)
+				end
+			end
 			puts "THE TEAM TOKEN"
 			puts teamToken.inspect
-			@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
-	 		@userList = @userList.parsed_response["members"]
-	 		puts @userList.inspect
-
-			@userInfo = Array.new
-			@userList.each do |user|
-				pushArray = Array.new
-				pushArray.push(user["id"])
-				pushArray.push(user["name"])
-				@userInfo.push(pushArray)
-			end
-
-			puts "THE USER INFO"
-			puts @userInfo.inspect
-
-	 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=#{teamToken}")
-	 		@dmList = @dmList.parsed_response["ims"]
-	 		puts @dmList.inspect
-
-			if @webhook["text"][0].include?("help") && @webhook["text"][0].exclude?("@")
-				userMessage = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "Need some help? No problem! Here is the formula for using multidm: _/multidm @john @jane type your message here_ \n if your problem persists: email *alecaej2002@gmail.com*", teamToken)
-				@sentHelp = true
-				puts "THE USER MESSAGE"
-				puts userMessage
-			end
-
-	 		@userText = @webhook["text"][0]
-			puts "USER TEXT: " + @userText
-	 		if !@userText.nil?
-		 		@splitText = @userText.split(" ")
-		 		@userToText = Array.new
-		 		@splitText.each do |word|
-		 			if word[0] == "@"
-						fullUserName = word
-						fullUserName = fullUserName.gsub("@", "")
-						puts "THE FULL USERNAME: " + fullUserName
-						if @userInfo.to_s.include?(fullUserName)
-							@userText.slice!(word)
-		 					word.slice!("@")
-		 					@userToText.push(word)
-						end
-		 			end
-		 		end
-				puts "OTHER STUFF"
-		 		puts @userToText.inspect
-	 		end
-
-
-	 		@userIds = Array.new
-	 		if !@userToText.empty?
-		 		@userToText.each do |user|
-					puts "USER: " + user.inspect
-					@userInfo.each do |aUser|
-						puts "AUSER: " + aUser.inspect
-			 			getUser = aUser if aUser[1] == user
-			 			@userIds.push(getUser[0]) if !getUser.nil?
-					end
-		 		end
-	 		end
-	 		puts "User IDS"
-			@finalList = Array.new
-	 		puts @userIds.inspect
-	 		@dmList.each do |dm|
-				@userIds.each do |userid|
-					if userid == dm["user"]
-						@finalList.push(dm["id"])
-					end
-				end
-			end
-
-
-
-			puts "THE FINAL LIST"
-			puts @finalList.inspect
-			if @finalList.empty? && @sentHelp == false
-				messageSent = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "uh-oh! something went wrong! i think you forgot to add people to send your message to! use:  _/multidm help_", teamToken)
+			if teamToken.nil?
+				# send ephermeral message thing
+				Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "it appears you haven't installed MultiDM! Visit https://slackmultidm.herokuapp.com/#about to install", otherTokenArray[0])
 			else
-				@finalList.each do |dm|
-					messageSent = Messagehuman.sendMessage(dm, @userText, teamToken)
-					puts messageSent
+				@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
+		 		@userList = @userList.parsed_response["members"]
+		 		puts @userList.inspect
+
+				@userInfo = Array.new
+				@userList.each do |user|
+					pushArray = Array.new
+					pushArray.push(user["id"])
+					pushArray.push(user["name"])
+					@userInfo.push(pushArray)
 				end
-			end
+
+				puts "THE USER INFO"
+				puts @userInfo.inspect
+
+		 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=#{teamToken}")
+		 		@dmList = @dmList.parsed_response["ims"]
+		 		puts @dmList.inspect
+
+				if @webhook["text"][0].include?("help") && @webhook["text"][0].exclude?("@")
+					userMessage = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "Need some help? No problem! Here is the formula for using multidm: _/multidm @john @jane type your message here_ \n if your problem persists: email *alecaej2002@gmail.com*", teamToken)
+					@sentHelp = true
+					puts "THE USER MESSAGE"
+					puts userMessage
+				end
+
+		 		@userText = @webhook["text"][0]
+				puts "USER TEXT: " + @userText
+		 		if !@userText.nil?
+			 		@splitText = @userText.split(" ")
+			 		@userToText = Array.new
+			 		@splitText.each do |word|
+			 			if word[0] == "@"
+							fullUserName = word
+							fullUserName = fullUserName.gsub("@", "")
+							puts "THE FULL USERNAME: " + fullUserName
+							if @userInfo.to_s.include?(fullUserName)
+								@userText.slice!(word)
+			 					word.slice!("@")
+			 					@userToText.push(word)
+							end
+			 			end
+			 		end
+					puts "OTHER STUFF"
+			 		puts @userToText.inspect
+		 		end
+
+
+		 		@userIds = Array.new
+		 		if !@userToText.empty?
+			 		@userToText.each do |user|
+						puts "USER: " + user.inspect
+						@userInfo.each do |aUser|
+							puts "AUSER: " + aUser.inspect
+				 			getUser = aUser if aUser[1] == user
+				 			@userIds.push(getUser[0]) if !getUser.nil?
+						end
+			 		end
+		 		end
+		 		puts "User IDS"
+				@finalList = Array.new
+		 		puts @userIds.inspect
+		 		@dmList.each do |dm|
+					@userIds.each do |userid|
+						if userid == dm["user"]
+							@finalList.push(dm["id"])
+						end
+					end
+				end
+
+
+
+				puts "THE FINAL LIST"
+				puts @finalList.inspect
+				if @finalList.empty? && @sentHelp == false
+					messageSent = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "uh-oh! something went wrong! i think you forgot to add people to send your message to! use:  _/multidm help_", teamToken)
+				else
+					@finalList.each do |dm|
+						messageSent = Messagehuman.sendMessage(dm, @userText, teamToken)
+						puts messageSent
+					end
+				end
+
+		end
 
 
  		end
@@ -120,7 +133,7 @@ class MessengerController < ApplicationController
 		if !@theToken.nil?
 		if @theToken["ok"] == true
 			puts "IN HERE"
-			@teamExisting = Team.where(team_id: @theToken["team_id"])
+			@teamExisting = Team.where(team_id: @theToken["user_id"])
 			puts "TEAM EXISTING?"
 			puts @teamExisting.inspect
 			if !@teamExisting.empty?
