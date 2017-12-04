@@ -12,7 +12,7 @@ class MessengerController < ApplicationController
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 
-			teamToken = Team.find_by(user_id: @webhook["user_id"][0]).access_token
+			teamToken = Team.find_by(user_id: @webhook["user_id"][0]).access_token if !Team.find_by(user_id: @webhook["user_id"][0]).nil?
 			otherTokens = Team.where(team_id: @webhook["team_id"][0])
 			otherTokenArray = Array.new
 			puts "OTHER TOKESNS"
