@@ -15,6 +15,8 @@ class MessengerController < ApplicationController
 			teamToken = Team.find_by(user_id: @webhook["user_id"][0]).access_token
 			otherTokens = Team.where(team_id: @webhook["team_id"][0])
 			otherTokenArray = Array.new
+			puts "OTHER TOKESNS"
+			puts otherTokens.inspect
 			if !otherTokens.empty?
 				otherTokens.each do |teamToken|
 					otherTokenArray.push(teamToken.access_token)
