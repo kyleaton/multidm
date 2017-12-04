@@ -123,7 +123,7 @@ class MessengerController < ApplicationController
 			@teamExisting = Team.where(team_id: @theToken["team_id"])
 			puts "TEAM EXISTING?"
 			puts @teamExisting.inspect
-			if !@teamExisting.nil?
+			if !@teamExisting.empty?
 				puts "NOT NIL"
 				@teamExisting.each do |team|
 					team.destroy
