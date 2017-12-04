@@ -133,7 +133,7 @@ class MessengerController < ApplicationController
 		if !@theToken.nil?
 		if @theToken["ok"] == true
 			puts "IN HERE"
-			@teamExisting = Team.where(team_id: @theToken["user_id"])
+			@teamExisting = Team.where(user_id: @theToken["user_id"])
 			puts "TEAM EXISTING?"
 			puts @teamExisting.inspect
 			if !@teamExisting.empty?
