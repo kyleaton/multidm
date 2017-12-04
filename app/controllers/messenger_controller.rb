@@ -119,12 +119,17 @@ class MessengerController < ApplicationController
 
 		if !@theToken.nil?
 		if @theToken["ok"] == true
+			puts "IN HERE"
 			@teamExisting = Team.where(team_id: @theToken["team_id"])
+			puts "TEAM EXISTING?"
+			puts @teamExisting.inspect
 			if !@teamExisting.nil?
+				puts "NOT NIL"
 				@teamExisting.each do |team|
 					team.destroy
 				end
 			end
+			puts "NEW TEAM"
 			newTeam = Team.new(access_token: @theToken["access_token"], user_id: @theToken["user_id"], team_name: @theToken["team_name"], team_id: @theToken["team_id"], channel_id: @theToken["incoming_webhook"]["channel_id"])
 			newTeam.save()
 		end
