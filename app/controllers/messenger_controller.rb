@@ -28,7 +28,7 @@ class MessengerController < ApplicationController
 				if !otherTokenArray.empty?
 					# send ephermeral message thing
 					#Messagehuman.sendResponse(@webhook["response_url"][0])
-					Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "it appears you haven't installed MultiDM! Visit https://slackmultidm.herokuapp.com/#about to install", otherTokenArray[0])
+					Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "it appears you haven't installed MultiDM! Visit <https://slackmultidm.herokuapp.com/#about> to install", otherTokenArray[0])
 				end
 			else
 				@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
