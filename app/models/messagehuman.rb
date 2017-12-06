@@ -16,4 +16,8 @@ class Messagehuman
 	def self.sendUserMessage(user, channel, text, token)
 		HTTParty.post("https://slack.com/api/chat.postEphemeral", :body => {:token => token, :user => user, :channel => channel, :text => text})
 	end
+
+	def self.sendResponse(url)
+		HTTParty.post(url, :body => {:text => "it appears you haven't installed MultiDM! Visit <https://slackmultidm.herokuapp.com/#about> to install"})
+	end
 end
