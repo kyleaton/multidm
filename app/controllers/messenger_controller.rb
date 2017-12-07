@@ -42,6 +42,9 @@ class MessengerController < ApplicationController
 					pushArray.push(user["name"])
 					@userInfo.push(pushArray)
 				end
+				puts "RESPONSE URL"
+				@sendResponseStuff = Messagehuman.sendResponse(@webhook["response_url"][0])
+				puts @sendResponseStuff.inspect
 
 				puts "THE USER INFO"
 				puts @userInfo.inspect

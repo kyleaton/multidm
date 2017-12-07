@@ -18,6 +18,6 @@ class Messagehuman
 	end
 
 	def self.sendResponse(url)
-		HTTParty.post(url, :body => {:text => "it appears you haven't installed MultiDM! Visit <https://slackmultidm.herokuapp.com/#about> to install"})
+		HTTParty.post(url.to_s, :body => {:response_type => "ephemeral", :text => "it appears you haven't installed MultiDM! Visit <https://slackmultidm.herokuapp.com/#about> to install"})
 	end
 end
