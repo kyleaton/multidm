@@ -46,7 +46,7 @@ class MessengerController < ApplicationController
 				puts @webhook["response_url"][0]
 				puts "RESPONSE URL"
 
-				@sendResponseStuff = Messagehuman.sendResponse(@webhook["response_url"][0])
+				@sendResponseStuff = Messagehuman.sendResponse(@webhook["response_url"][0], @webhook["user_id"][0], @webhook["channel_id"][0])
 				puts @sendResponseStuff.inspect
 
 				puts "THE USER INFO"
