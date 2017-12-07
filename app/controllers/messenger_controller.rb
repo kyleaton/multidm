@@ -94,7 +94,7 @@ class MessengerController < ApplicationController
 				puts "THE FINAL LIST"
 				puts @finalList.inspect
 				if @finalList.empty? && @sentHelp == false
-					messageSent = Messagehuman.sendUserMessage(@webhook["response_url"][0] "uh-oh! something went wrong! i think you forgot to add people to send your message to! use:  _/multidm help_")
+					messageSent = Messagehuman.sendUserMessage(@webhook["response_url"][0], "uh-oh! something went wrong! i think you forgot to add people to send your message to! use:  _/multidm help_")
 				else
 					@finalList.each do |dm|
 						messageSent = Messagehuman.sendMessage(dm, @userText, teamToken)
