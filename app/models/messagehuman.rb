@@ -21,7 +21,7 @@ class Messagehuman
 		#HTTParty.post(url, :body => {:response_type => "ephemeral", :text => "it appears you haven't installed MultiDM! Visit <https://slackmultidm.herokuapp.com/#about> to install"})
 		HTTParty.post(url.to_s,
     :body => { :response_type => 'ephemeral',
-               :text => 'Application Problem'
+               :text => 'it appears you haven\'t installed MultiDM! Visit <https://slackmultidm.herokuapp.com/#about> to install'
              }.to_json,
     :headers => { 'Content-Type' => 'application/json' } )
 	end
