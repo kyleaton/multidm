@@ -13,8 +13,12 @@ class Messagehuman
 		HTTParty.post("https://slack.com/api/chat.postMessage", :body => {:token => token, :channel => channel, :text => text, :as_user => true})
 	end
 
-	def self.sendUserMessage(user, channel, text, token)
-		HTTParty.post("https://slack.com/api/chat.postEphemeral", :body => {:token => token, :user => user, :channel => channel, :text => text})
+	def self.sendUserMessage(url, text)
+		HTTParty.post(url.to_s,
+    :body => { :response_type => 'ephemeral',
+               :text => text
+             }.to_json,
+    :headers => { 'Content-Type' => 'application/json' } )
 	end
 
 	def self.sendResponse(url)

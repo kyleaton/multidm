@@ -39,7 +39,7 @@ class MessengerController < ApplicationController
 		 		puts @dmList.inspect
 
 				if @webhook["text"][0].include?("help") && @webhook["text"][0].exclude?("@")
-					userMessage = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "Need some help? No problem! Here is the formula for using multidm: _/multidm @john @jane type your message here_ \n if your problem persists: email *alecaej2002@gmail.com*", teamToken)
+					userMessage = Messagehuman.sendUserMessage(@webhook["response_url"][0], "Need some help? No problem! Here is the formula for using multidm: _/multidm @john @jane type your message here_ \n if your problem persists: email *alecaej2002@gmail.com*")
 					@sentHelp = true
 					puts "THE USER MESSAGE"
 					puts userMessage
@@ -94,7 +94,7 @@ class MessengerController < ApplicationController
 				puts "THE FINAL LIST"
 				puts @finalList.inspect
 				if @finalList.empty? && @sentHelp == false
-					messageSent = Messagehuman.sendUserMessage(@webhook["user_id"][0], @webhook["channel_id"][0], "uh-oh! something went wrong! i think you forgot to add people to send your message to! use:  _/multidm help_", teamToken)
+					messageSent = Messagehuman.sendUserMessage(@webhook["response_url"][0] "uh-oh! something went wrong! i think you forgot to add people to send your message to! use:  _/multidm help_")
 				else
 					@finalList.each do |dm|
 						messageSent = Messagehuman.sendMessage(dm, @userText, teamToken)
