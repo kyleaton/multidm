@@ -46,7 +46,7 @@ class MessengerController < ApplicationController
 				puts "THE USER INFO"
 				puts @userInfo.inspect
 
-				Messagehuman.sendResponse(@webhook["response_url"][0])
+				#Messagehuman.sendResponse(@webhook["response_url"][0])
 
 		 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=#{teamToken}")
 		 		@dmList = @dmList.parsed_response["ims"]
