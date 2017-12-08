@@ -26,7 +26,7 @@ class MessengerController < ApplicationController
 		 		puts @userList.inspect
 
 				if @userList.nil? && @sentReponse == false
-					Messagehuman.sendUserMessage(@webhook["response_url"][0], "uh-oh, houston we have a problem. I don't think you've installed MultiDM. Visit <https://slackmultidm.herokuapp.com/#about | MultiDM's Website> to install!")
+					Messagehuman.sendUserMessage(@webhook["response_url"][0], "uh-oh, houston we have a problem. I don't think you've installed MultiDM. Visit <https://slackmultidm.herokuapp.com/#about> to install!")
 					@sentHelp = true
 				else
 					@userInfo = Array.new
