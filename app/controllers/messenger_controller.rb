@@ -9,6 +9,7 @@ class MessengerController < ApplicationController
 	def receive_message
 		@webhook = CGI::parse(request.raw_post)
 		@sentHelp = false
+		@sentReponse = false
 		puts @webhook.inspect
 		if @webhook["token"][0] == "igdU33zedZ6zU7gevHrZDNWT"
 
@@ -18,21 +19,28 @@ class MessengerController < ApplicationController
 			if teamToken.nil?
 				# send ephermeral message thing
 				Messagehuman.sendResponse(@webhook["response_url"][0])
+				@sentReponse = true
 			else
 				@userList = HTTParty.get("https://slack.com/api/users.list?token=#{teamToken}")
 		 		@userList = @userList.parsed_response["members"]
 		 		puts @userList.inspect
 
-				@userInfo = Array.new
-				@userList.each do |user|
-					pushArray = Array.new
-					pushArray.push(user["id"])
-					pushArray.push(user["name"])
-					@userInfo.push(pushArray)
+				if @userList.nil? && @sentReponse == false
+					Messagehuman.sendUserMessage(@webhook["response_url"][0], "uh-oh, houston we have a problem. I don't think you've installed MultiDM. Visit <https://slackmultidm.herokuapp.com/#about | MultiDM's Website> to install!")
+					@sentHelp = true
+				else
+					@userInfo = Array.new
+					@userList.each do |user|
+						pushArray = Array.new
+						pushArray.push(user["id"])
+						pushArray.push(user["name"])
+						@userInfo.push(pushArray)
+					end
 				end
 
 				puts "THE USER INFO"
 				puts @userInfo.inspect
+
 
 		 		@dmList = HTTParty.get("https://slack.com/api/im.list?token=#{teamToken}")
 		 		@dmList = @dmList.parsed_response["ims"]
